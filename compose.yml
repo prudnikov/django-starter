@@ -1,0 +1,19 @@
+services:
+  api:
+    container_name: api2
+    build:
+      context: .
+      dockerfile: ${DOCKERFILE}
+    env_file:
+      - .env
+    environment:
+      ITD_LOGGING: local
+      PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./logs:/app/logs
+      - static:/static
+    ports:
+      - "8010:8000"
+
+volumes:
+  static:

@@ -1,0 +1,66 @@
+[project]
+name = "django-starter"
+version = "0.1.0"
+description = "Django starter app"
+authors = [
+    {name = "Vladimir Prudnikov",email = "v.prudnikov@gmail.com"},
+]
+dependencies = [
+    "gunicorn>=23.0.0",
+    "pytest-django>=4.9.0",
+    "django>=5.1.1",
+    "ruff>=0.6.8",
+    "isort>=5.13.2",
+    "pre-commit>=3.8.0",
+    "pytest>=8.3.3",
+    "black>=24.8.0",
+]
+requires-python = "==3.12.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.build]
+package-dir = "src"
+
+[project.scripts]
+cli = "django_starter.cli:cli"
+
+[tool.pdm.scripts._.env]
+PYTHON_BIN = './.venv/bin/python'
+ISORT_BIN = './.venv/bin/isort'
+BLACK_BIN = './.venv/bin/black'
+
+[tool.pdm.scripts.lint]
+shell = "pre-commit run --all-files"
+
+#[tool.pytest.ini_options]
+#DJANGO_SETTINGS_MODULE = "django_starter.config.settings"
+## -- recommended but optional:
+#python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src"
+]
+testpaths = [
+    "tests",
+    "src"
+]
+python_files = [
+    "tests.py",
+    "test_*.py",
+    "*_test.py",
+]
+
+[tool.isort]
+line_length = 79
+profile = "black"
+remove_redundant_aliases = true
+
+[tool.black]
+line-length = 79
+target-version = ['py312']
